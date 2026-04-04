@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MENU</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0000aa;
+  color: white;
+  font-family: "Courier New", monospace;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+/* CRT container */
+.menu {
+  width: 500px;
+  transform: scaleX(1.3);
+  transform-origin: center;
+}
+
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+/* Menu items */
+.item {
+  padding: 5px 10px;
+  font-size: 20px;
+   letter-spacing: 2px;
+}
+
+/* Highlight bar */
+.selected {
+  background: white;
+  color: #0000aa;
+}
+
+/* Slight pixel feel */
+body, .item {
+  image-rendering: pixelated;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu">
+  <div class="title">--------- MENU ---------</div>
+
+  <div class="item selected">ENTER NEWSLETTER</div>
+  <div class="item">ARCHIVE</div>
+  <div class="item">ABOUT</div>
+  <div class="item">CONTACT</div>
+</div>
+
+<script>
+const items = document.querySelectorAll(".item");
+let index = 0;
+
+function updateMenu() {
+  items.forEach((item, i) => {
+    item.classList.toggle("selected", i === index);
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    index = (index + 1) % items.length;
+    updateMenu();
+  }
+
+  if (e.key === "ArrowUp") {
+    index = (index - 1 + items.length) % items.length;
+    updateMenu();
+  }
+
+  if (e.key === "Enter") {
+    const choice = items[index].innerText;
+
+    // You can change these links
+    if (choice === "ENTER NEWSLETTER") {
+      window.location.href = "newsletter.html";
+    }
+
+    if (choice === "ARCHIVE") {
+      alert("Archive not built yet");
+    }
+  }
+});
+</script>
+
+</body>
+</html>

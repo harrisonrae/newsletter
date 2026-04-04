@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Newsletter OS</title>
+
+<style>
+body {
+  margin: 0;
+  background: #ffffff;
+  font-family: Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+/* Desktop */
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* Icons */
+.icon {
+  position: absolute;
+  width: 90px;
+  text-align: center;
+  color: rgb(0, 14, 170);
+  cursor: default;
+}
+
+.icon img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  width: 520px;
+  height: 400px;
+  background: #9d9d9d;
+  border: 2px solid #000080;
+  box-shadow: 4px 4px 0 #333;
+  display: none;
+  flex-direction: column;
+}
+
+/* Title bar */
+.title-bar {
+  background: linear-gradient(#000080, #0000aa);
+  color: white;
+  padding: 5px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.close {
+  background: rgb(152, 33, 97);
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+/* Content */
+.content {
+  padding: 10px;
+  font-size: 12px;
+  overflow: auto;
+  background: #c0c0c0;
+  height: 100%;
+  color: rgb(11, 11, 11);
+}
+
+/* Fullscreen artwork */
+.fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  left: 0 !important;
+  top: 0 !important;
+
+}
+
+.fullscreen .content {
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+  
+}
+
+.fullscreen img {
+  max-width: 95vw;
+  max-height: 85vh;
+  object-fit: contain;
+  
+}
+</style>
+</head>
+
+<body>
+
+<div id="desktop">
+
+  <!-- ICON: Newsletter -->
+  <div class="icon" style="top:50px; left:50px;" ondblclick="openWindow('win1')">
+    <img src="images/icon1.png"/>
+    <span>06.04.2026</span>
+  </div>
+
+  <!-- ICON: Folder -->
+  <div class="icon" style="top:150px; left:50px;" ondblclick="openWindow('galleryWin')">
+    <img src="images/folder.png"/>
+    <span>ARTWORKS</span>
+  </div>
+
+  <!-- WINDOW 1 -->
+  <div class="window" id="win1">
+    <div class="title-bar">
+      06.04.2026
+      <span class="close" onclick="closeWindow('win1')">X</span>
+    </div>
+    <div class="content">
+      <p>Hi!</p>
+      <p>Thanks to everyone that recently joined the mailing list.</p>
+      <p>
+      It's taken a moment to finish this website.  
+      Last week my work <em>palantir capture at your local coles</em> was shown at Goodspace.  
+      Works are available for purchase — open the folder icon.
+      </p>
+    </div>
+  </div>
+
+  <!-- GALLERY WINDOW -->
+  <div class="window" id="galleryWin">
+    <div class="title-bar">
+      ARTWORKS_FOLDER
+      <span class="close" onclick="closeWindow('galleryWin')">X</span>
+    </div>
+    <div class="content">
+      <div id="galleryGrid" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN ART VIEW -->
+  <div class="window" id="artDetail">
+    <div class="title-bar">
+      ARTWORK_VIEW
+      <span class="close" onclick="closeWindow('artDetail')">X</span>
+    </div>
+    <div class="content">
+      <img id="detailImage">
+      <p id="detailInfo" style="color:rgb(0, 0, 0);"></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let topZ = 1;
+let offset = 0;
+
+/* Window controls */
+function openWindow(id) {
+  const win = document.getElementById(id);
+  win.style.display = 'flex';
+  win.style.left = (100 + offset) + 'px';
+  win.style.top = (100 + offset) + 'px';
+  win.classList.remove("fullscreen");
+  bringToFront(win);
+  offset += 20;
+
+  if (id === "galleryWin") renderGrid();
+}
+
+function closeWindow(id) {
+  const win = document.getElementById(id);
+  win.style.display = 'none';
+  win.classList.remove("fullscreen");
+}
+
+function bringToFront(el) {
+  topZ++;
+  el.style.zIndex = topZ;
+}
+
+/* Dragging */
+document.querySelectorAll(".window").forEach(win => {
+  const bar = win.querySelector(".title-bar");
+  let offsetX = 0, offsetY = 0, isDown = false;
+
+  bar.addEventListener("mousedown", e => {
+    if (win.classList.contains("fullscreen")) return;
+    isDown = true;
+    offsetX = win.offsetLeft - e.clientX;
+    offsetY = win.offsetTop - e.clientY;
+    bringToFront(win);
+  });
+
+  document.addEventListener("mouseup", () => isDown = false);
+
+  document.addEventListener("mousemove", e => {
+    if (!isDown) return;
+    win.style.left = (e.clientX + offsetX) + "px";
+    win.style.top = (e.clientY + offsetY) + "px";
+  });
+});
+
+/* ARTWORK DATA */
+const artworks = [
+  { src: "images/tony.png", title: "Tony", price: "$500", size: "40 x 50 cm" },
+  { src: "images/xerographystudy.png", title: "Work 02", price: "$200", size: "60 x 80 cm" },
+  { src: "https://via.placeholder.com/800", title: "Work 03", price: "$300", size: "30 x 30 cm" }
+];
+
+/* GRID */
+function renderGrid() {
+  const container = document.getElementById("galleryGrid");
+  container.innerHTML = "";
+
+  artworks.forEach((art, index) => {
+    const item = document.createElement("div");
+    item.style.width = "120px";
+    item.style.cursor = "pointer";
+
+    item.innerHTML = `
+      <img src="${art.src}" style="width:100%; height:90px; object-fit:cover;">
+      <div style="font-size:10px;">${art.title}</div>
+    `;
+
+    item.ondblclick = () => openArtwork(index);
+    container.appendChild(item);
+  });
+}
+
+/* OPEN FULLSCREEN ART */
+function openArtwork(index) {
+  const art = artworks[index];
+  const win = document.getElementById("artDetail");
+
+  win.style.display = "flex";
+  win.classList.add("fullscreen");
+  bringToFront(win);
+
+  document.getElementById("detailImage").src = art.src;
+  document.getElementById("detailInfo").innerHTML = `
+    <strong>${art.title}</strong><br>
+    ${art.price}<br>
+    ${art.size}
+  `;
+}
+</script>
+
+</body>
+</html>
