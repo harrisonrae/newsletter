@@ -35,6 +35,57 @@ body {
   margin: 0 auto;
 }
 
+#menubar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #c0c0c0;
+  border-bottom: 2px solid #000;
+  display: flex;
+  z-index: 9999;
+}
+
+.menu-item {
+  padding: 5px 10px;
+  position: relative;
+  cursor: default;
+}
+
+.menu-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid #000;
+  min-width: 150px;
+}
+
+.dropdown div {
+  padding: 5px;
+}
+
+.dropdown div:hover {
+  background: #000080;
+  color: white;
+}
+
+/* show dropdown */
+.menu-item:hover .dropdown {
+  display: block;
+}
+
+/* push desktop content down so it's not hidden */
+#desktop {
+  padding-top: 30px;
+}
+
 /* Windows */
 .window {
   position: absolute;
@@ -78,9 +129,9 @@ body {
 /* Fullscreen artwork */
 .fullscreen {
   width: 100vw !important;
-  height: 100vh !important;
+  height: 90vh !important;
   left: 0 !important;
-  top: 0 !important;
+  top: 45px !important;
 
 }
 
@@ -95,8 +146,8 @@ body {
 }
 
 .fullscreen img {
-  max-width: 95vw;
-  max-height: 85vh;
+  max-width: 90vw;
+  max-height: 70vh;
   object-fit: contain;
   
 }
@@ -106,6 +157,36 @@ body {
 <body>
 
 <div id="desktop">
+  <div id="menubar">
+  <div class="menu-item">File
+    <div class="dropdown">
+      <div onclick="openWindow('win1')">Open Newsletter</div>
+      <div onclick="openWindow('galleryWin')">Open Artworks</div>
+      <div onclick="location.reload()">Refresh</div>
+    </div>
+  </div>
+
+  <div class="menu-item">Edit
+    <div class="dropdown">
+      <div>Copy</div>
+      <div>Paste</div>
+    </div>
+  </div>
+
+  <div class="menu-item">View
+    <div class="dropdown">
+      <div onclick="openWindow('galleryWin')">Artworks for sale</div>
+      <div onclick="window.location.href='https:harrisonrae.webflow.io'">Visit my Website</div>
+  </div>
+  </div>
+  
+
+  <div class="menu-item">Help
+    <div class="dropdown">
+      <div onclick="alert('This is the first iteration of Harrison Raes newsletter. Please bookmark this page to keep updated or to be placed on the mailing list send an email to harry-rae(at)hotmail.com')">About</div>
+    </div>
+  </div>
+</div>
 
   <!-- ICON: Newsletter -->
   <div class="icon" style="top:50px; left:50px;" ondblclick="openWindow('win1')">
@@ -119,6 +200,17 @@ body {
     <span>ARTWORKS</span>
   </div>
 
+    <!-- ICON: fingerprint -->
+  <div class="icon" style="top:250px; left:50px;" ondblclick="openWindow('finwin')">
+    <img src="images/fingerprint.jpg"/>
+    <span>ID</span>
+  </div>
+
+  <div class="icon" style="top:350px; left:50px;" ondblclick="openWindow('imgWin')">
+  <img src="images/headshot.jpg"/>
+  <span>IMAGE</span>
+</div>
+
   <!-- WINDOW 1 -->
   <div class="window" id="win1">
     <div class="title-bar">
@@ -129,9 +221,13 @@ body {
       <p>Hi!</p>
       <p>Thanks to everyone that recently joined the mailing list.</p>
       <p>
-      It's taken a moment to finish this website.  
-      Last week my work <em>palantir capture at your local coles</em> was shown at Goodspace.  
-      Works are available for purchase — open the folder icon.
+      It's taken a moment to code this site, I hope this will serve as an interesting way to host a newsletter and keep people informed about what I am up to.
+      <p>
+      Over time I'll be adding more icons to this homepage as I learn to code.
+      <p>
+      In recent news, last week my work <em>Palantir capture at your local Coles</em> was shown at Goodspace. 
+      Thanks to Luke Westwood and Jensen Dahl for curating me into their show <em>red=meltdown</em> 
+      That work among others are available for purchase — open the folder icon.
       </p>
     </div>
   </div>
@@ -147,23 +243,48 @@ body {
     </div>
   </div>
 
+  <!-- fingerprint -->
+  <div class="window" id="finwin">
+    <div class="title-bar">
+      ID
+      <span class="close" onclick="closeWindow('finwin')">X</span>
+    </div>
+   <div class="content" style="display:flex; justify-content:center; align-items:center;">
+  <img src="images/fingerprint.jpg" style="max-width:100%; max-height:100%;">
+</div>
+  </div>
+
   <!-- FULLSCREEN ART VIEW -->
   <div class="window" id="artDetail">
     <div class="title-bar">
       ARTWORK_VIEW
       <span class="close" onclick="closeWindow('artDetail')">X</span>
     </div>
+
     <div class="content">
       <img id="detailImage">
       <p id="detailInfo" style="color:rgb(0, 0, 0);"></p>
     </div>
   </div>
+  
+  
+  <div class="window" id="imgWin">
+  <div class="title-bar">
+    Harrison Rae
+    <span class="close" onclick="closeWindow('imgWin')">X</span>
+  </div>
+  <div class="content" style="display:flex; justify-content:center; align-items:center; background:rgb(255, 255, 255);">
+    <img src="images/headshot.jpg" style="max-width:95%; max-height:95%; object-fit:contain;">
+  </div>
+</div>
 
 </div>
 
 <script>
 let topZ = 1;
 let offset = 0;
+
+
 
 /* Window controls */
 function openWindow(id) {
@@ -189,6 +310,8 @@ function bringToFront(el) {
   el.style.zIndex = topZ;
 }
 
+
+
 /* Dragging */
 document.querySelectorAll(".window").forEach(win => {
   const bar = win.querySelector(".title-bar");
@@ -213,9 +336,10 @@ document.querySelectorAll(".window").forEach(win => {
 
 /* ARTWORK DATA */
 const artworks = [
-  { src: "images/tony.png", title: "Tony", price: "$500", size: "40 x 50 cm" },
-  { src: "images/xerographystudy.png", title: "Work 02", price: "$200", size: "60 x 80 cm" },
-  { src: "https://via.placeholder.com/800", title: "Work 03", price: "$300", size: "30 x 30 cm" }
+  { src: "images/tony.png", title: "Tony", price: "$500", mat: "gel medium transfer on board", size: "40 x 50 cm" },
+  { src: "images/xerographystudy.png", title: "Work 02", price: "$200", mat: "eucalpytus transfer on canvas", size: "60 x 80 cm" },
+  { src: "images/runway.png", title: "Runway", price: "$350", materials: "acrylic, gel medium transfer on board", size: "60 x 70 cm" },
+  { src: "images/Palantir.png", title: "Palantir Capture at your Local Coles", price: "$200", size: "30 x 40 cm" }
 ];
 
 /* GRID */
@@ -254,6 +378,15 @@ function openArtwork(index) {
     ${art.size}
   `;
 }
+
+/* FIXED: RUNS ON LOAD */
+window.onload = function () {
+  const win = document.getElementById("imgWin");
+  win.style.display = "flex";
+  win.style.left = (window.innerWidth - 560) + "px";
+  win.style.top = "80px";
+  bringToFront(win);
+};
 </script>
 
 </body>

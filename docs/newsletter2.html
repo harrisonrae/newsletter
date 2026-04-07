@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MacPaint Newsletter</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: monospace;
+  background: #ddd;
+}
+
+/* TOP MENU */
+#menubar {
+  height: 50px;
+  background: #eee;
+  border-bottom: 2px solid #000;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.menu-item {
+  margin-right: 20px;
+}
+
+/* MAIN LAYOUT */
+#app {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr 80px;
+  height: calc(100vh - 30px);
+}
+
+/* TOOLBAR */
+#toolbar {
+  border-right: 2px solid #000;
+  background: #eee;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 10px;
+}
+
+.tool {
+  height: 40px;
+  border: 1px solid #000;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* CANVAS AREA */
+#canvas {
+  background: #ffffff;
+  border: 2px solid #000;
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* PATTERN STRIP */
+#patterns {
+  grid-column: span 2;
+  border-top: 2px solid #000;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+}
+
+.pattern {
+  border: 1px solid #000;
+  height: 100%;
+}
+
+/* WINDOWS */
+.window {
+  position: absolute;
+  width: 500px;
+  height: 350px;
+  background: white;
+  border: 2px solid black;
+  display: none;
+  flex-direction: column;
+}
+
+.title-bar {
+  background: #000;
+  color: white;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+
+.close {
+  cursor: pointer;
+}
+
+/* FULLSCREEN */
+.fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.fullscreen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
+</head>
+
+<body>
+
+<div id="menubar">
+  <div class="menu-item"></div>
+  <div class="menu-item">File
+    <div class="dropdown">
+        <div onclick="openWindow('about')">About</div>
+        <div onclick="openWindow('second option')">second option</div>
+    </div>
+  </div>
+  <div class="menu-item">Edit</div>
+  <div class="menu-item">Goodies</div>
+  <div class="menu-item">Extras</div>
+  <div class="menu-item">Font</div>
+  <div class="menu-item">help
+    <div class="dropdown">
+        <div onclick="location.reload()">Refresh</div>
+          </div>
+</div>
+</div>
+
+
+
+
+
+<div id="app">
+
+  <!-- TOOLBAR -->
+  <div id="toolbar">
+    <div class="tool" onclick="openWindow('win1')">T</div>
+    <div class="tool" onclick="openWindow('galleryWin')">■</div>
+    <div class="tool" onclick="openWindow('galleryWin')">✏</div>
+    <div class="tool" onclick="openWindow('galleryWin')">⬛</div>
+    <div class="tool" onclick="openWindow('galleryWin')">◯</div>
+    <div class="tool" onclick="openWindow('galleryWin')">⬜</div>
+  </div>
+
+  <!-- CANVAS -->
+  <div id="canvas">
+
+    <!-- NEWSLETTER -->
+    <div class="window" id="win1">
+      <div class="title-bar">
+        untitled
+        <span class="close" onclick="closeWindow('win1')">X</span>
+      </div>
+      <div style="padding:10px;">
+        <p>Hi!</p>
+        <p>Newsletter text appears here.</p>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="window" id="galleryWin">
+      <div class="title-bar">
+        artworks
+        <span class="close" onclick="closeWindow('galleryWin')">X</span>
+      </div>
+      <div style="padding:10px; display:flex; flex-wrap:wrap; gap:10px;" id="grid"></div>
+    </div>
+
+    <!-- FULLSCREEN ART -->
+    <div class="window" id="artDetail">
+      <div class="title-bar">
+        artwork
+        <span class="close" onclick="closeWindow('artDetail')">X</span>
+      </div>
+      <img id="detailImage">
+    </div>
+
+  </div>
+
+  <!-- PATTERNS -->
+  <div id="patterns"></div>
+
+</div>
+
+<script>
+let z = 1;
+
+/* WINDOWS */
+function openWindow(id) {
+  const w = document.getElementById(id);
+  w.style.display = "flex";
+  w.style.left = "50px";
+  w.style.top = "50px";
+  w.classList.remove("fullscreen");
+  bringFront(w);
+
+  if (id === "galleryWin") renderGrid();
+}
+
+function closeWindow(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+function bringFront(el) {
+  z++;
+  el.style.zIndex = z;
+}
+
+/* DRAG */
+document.querySelectorAll(".window").forEach(win => {
+  const bar = win.querySelector(".title-bar");
+  let dx, dy, down = false;
+
+  bar.addEventListener("mousedown", e => {
+    if (win.classList.contains("fullscreen")) return;
+    down = true;
+    dx = e.clientX - win.offsetLeft;
+    dy = e.clientY - win.offsetTop;
+    bringFront(win);
+  });
+
+  document.addEventListener("mouseup", () => down = false);
+
+  document.addEventListener("mousemove", e => {
+    if (!down) return;
+    win.style.left = (e.clientX - dx) + "px";
+    win.style.top = (e.clientY - dy) + "px";
+  });
+});
+
+/* ART DATA */
+const artworks = [
+  {src:"images/tony.png"},
+  {src:"images/xerographystudy.png"}
+];
+
+/* GRID */
+function renderGrid() {
+  const g = document.getElementById("grid");
+  g.innerHTML = "";
+
+  artworks.forEach((a,i) => {
+    const d = document.createElement("div");
+    d.innerHTML = `<img src="${a.src}" style="width:100px">`;
+    d.ondblclick = () => openArt(i);
+    g.appendChild(d);
+  });
+}
+
+/* FULLSCREEN VIEW */
+function openArt(i) {
+  const w = document.getElementById("artDetail");
+  w.style.display = "flex";
+  w.classList.add("fullscreen");
+  bringFront(w);
+  document.getElementById("detailImage").src = artworks[i].src;
+}
+
+/* PATTERNS */
+const p = document.getElementById("patterns");
+for(let i=0;i<20;i++){
+  const d=document.createElement("div");
+  d.className="pattern";
+  p.appendChild(d);
+}
+</script>
+
+</body>
+</html>
