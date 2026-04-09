@@ -221,15 +221,19 @@ body {
       <p>Hi!</p>
       <p>Thanks to everyone that recently joined the mailing list.</p>
       <p>
-      It's taken a moment to code this site, I hope this will serve as an interesting way to host a newsletter and keep people informed about what I am up to.
+      It's taken a moment to code this site, but I think it will serve as a way to host a newsletter and keep people informed about what I am up to.
       <p>
-      Over time I'll be adding more icons to this homepage as I learn to code.
+      Over time I'll be adding more icons to this homepage as I learn to code. For now you can 
       <p>
       In recent news, last week my work <em>Palantir capture at your local Coles</em> was shown at Goodspace. 
       Thanks to Luke Westwood and Jensen Dahl for curating me into their show <em>red=meltdown</em> 
       That work among others are available for purchase — open the folder icon.
       </p>
+
     </div>
+     <div style="margin-top:auto; display:flex; justify-content:center;">
+    <button onclick="closeWindow('win1')">cool!</button>
+  </div>
   </div>
 
   <!-- GALLERY WINDOW -->
@@ -384,6 +388,14 @@ window.onload = function () {
   const win = document.getElementById("imgWin");
   win.style.display = "flex";
   win.style.left = (window.innerWidth - 560) + "px";
+  win.style.top = "80px";
+  bringToFront(win);
+}
+
+  window.onload = function () {
+  const win = document.getElementById("win1");
+  win.style.display = "flex";
+  win.style.left = (window.innerWidth - 860) + "px";
   win.style.top = "80px";
   bringToFront(win);
 };
