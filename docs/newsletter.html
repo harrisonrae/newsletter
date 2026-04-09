@@ -89,7 +89,7 @@ body {
 /* Windows */
 .window {
   position: absolute;
-  width: 520px;
+  width: 460px;
   height: 400px;
   background: #9d9d9d;
   border: 2px solid #000080;
@@ -189,7 +189,7 @@ body.flipped {
 
   <div class="menu-item">Help
     <div class="dropdown">
-      <div onclick="alert('This is the first iteration of Harrison Raes newsletter. Please bookmark this page to keep updated or to be placed on the mailing list send an email to harry-rae(at)hotmail.com')">About</div>
+      <div onclick="alert('This is the first iteration of Harrison Raes newsletter. Please bookmark this page to keep updated.')">About</div>
     </div>
   </div>
 </div>
@@ -197,7 +197,7 @@ body.flipped {
   <!-- ICON: Newsletter -->
   <div class="icon" style="top:50px; left:50px;" onclick="openWindow('win1')">
     <img src="images/icon1.png"/>
-    <span>06.04.2026</span>
+    <span>April</span>
   </div>
 
   <!-- ICON: Folder -->
@@ -205,16 +205,9 @@ body.flipped {
     <img src="images/folder.png"/>
     <span>ARTWORKS</span>
   </div>
-
-    <!-- ICON: fingerprint -->
-  <div class="icon" style="top:250px; left:50px;" ondblclick="openWindow('finwin')">
-    <img src="images/fingerprint.jpg"/>
-    <span>ID</span>
-  </div>
-
   
 
-  <div class="icon" style="top:350px; left:50px;" ondblclick="openWindow('imgWin')">
+  <div class="icon" style="top:250px; left:50px;" ondblclick="openWindow('imgWin')">
   <img src="images/headshot.jpg"/>
   <span>IMAGE</span>
 </div>
@@ -253,16 +246,7 @@ body.flipped {
     </div>
   </div>
 
-  <!-- fingerprint -->
-  <div class="window" id="finwin">
-    <div class="title-bar">
-      ID
-      <span class="close" onclick="closeWindow('finwin')">X</span>
-    </div>
-   <div class="content" style="display:flex; justify-content:center; align-items:center;">
-  <img src="images/fingerprint.jpg" style="max-width:100%; max-height:100%;">
-</div>
-  </div>
+
 
   <!-- FULLSCREEN ART VIEW -->
   <div class="window" id="artDetail">
@@ -347,10 +331,14 @@ document.querySelectorAll(".window").forEach(win => {
 /* ARTWORK DATA */
 const artworks = [
   { src: "images/tony.png", title: "Tony", price: "$450", materials: "gel medium transfer on board", size: "40 x 50 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
-  { src: "images/xerographystudy.png", title: "Work 02", price: "$150", materials: "eucalpytus transfer on canvas", size: "60 x 80 cm" },
-  { src: "images/runway.png", title: "Runway", price: "$350", materials: "acrylic and gel medium transfer on board", size: "60 x 70 cm" },
-  { src: "images/Palantir.png", title: "Palantir Capture at your Local Coles", price: "$200", materials: "gel medium transfer on board", size: "30 x 40 cm" },
-  { src: "images/echo.png", title: "echo", price: "$250", materials: "acrylic and gel medium transfer on board", size: "50 x 60 cm" }
+  { src: "images/xerographystudy.png", title: "Work 02", price: "$150", materials: "Solvent transfer on canvas", size: "60 x 80 cm" },
+  { src: "images/runway.png", title: "Runway", price: "$350", materials: "acrylic and gel medium transfer on board", size: "50 x 60 cm" },
+  { src: "images/runway.png", title: "R.R. Ripoff", price: "$350", materials: "Acrylic and gel medium transfer on board", size: "50 x 60 cm" },
+  { src: "images/Palantir.png", title: "Palantir Capture at your Local Coles", price: "$200", materials: "gel medium transfer on board", size: "30 x 40 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/angel.png", title: "Angel", price: "$200", materials: "Acrylic on canvas", size: "30 x 40 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/cocoa.png", title: "Cocoa", price: "$180", materials: "Gel medium transfer on board", size: "30 x 40 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/Cowboy.png", title: "Michael Clayton", price: "$200", materials: "Solvent transfer on canvas", size: "30 x 40 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/palantir2.png", title: "Palantir Study", price: "$200", materials: "Solvent transfer on board", size: "50 x 60 cm" }
 ];
 
 /* GRID */
