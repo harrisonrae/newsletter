@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Explosion Landing</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: sans-serif;
+    color: white;
+    text-align: center;
+  }
+
+  #landing {
+    position: relative;
+    top: 40vh;
+  }
+
+  #logo {
+    width: 200px;
+    display: block;
+    margin: 0 auto 20px;
+    transition: opacity 0.7s;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* FLASH */
+  #flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* SHOCKWAVE */
+  #shockwave {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border: 3px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  /* SCREEN SHAKE */
+  .shake {
+    animation: shake 0.7s;
+  }
+
+  @keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(6px, -6px); }
+    50% { transform: translate(-6px, 6px); }
+    75% { transform: translate(6px, 6px); }
+    100% { transform: translate(0, 0); }
+  }
+</style>
+</head>
+
+<body>
+
+<div id="landing">
+  <img src="images/spotify.png" id="logo">
+  <button onclick="enterSite()">Enter</button>
+</div>
+
+<div id="flash"></div>
+<div id="shockwave"></div>
+
+<script>
+function enterSite() {
+  const logo = document.getElementById("logo");
+  const flash = document.getElementById("flash");
+  const shockwave = document.getElementById("shockwave");
+
+  // SOUND (optional)
+  try {
+    new Audio("boom.mp3").play();
+  } catch (e) {}
+
+  // FLASH
+  flash.animate([
+    { opacity: 0 },
+    { opacity: 1 },
+    { opacity: 0 }
+  ], {
+    duration: 200,
+    easing: "ease-out"
+  });
+
+  // SHOCKWAVE
+  shockwave.animate([
+    { transform: "translate(-50%, -50%) scale(0)", opacity: 1 },
+    { transform: "translate(-50%, -50%) scale(20)", opacity: 0 }
+  ], {
+    duration: 600,
+    easing: "ease-out"
+  });
+
+  // SCREEN SHAKE
+  document.body.classList.add("shake");
+  setTimeout(() => document.body.classList.remove("shake"), 300);
+
+  // LOGO BURST
+  const rect = logo.getBoundingClientRect();
+
+  for (let i = 0; i < 50; i++) {
+    let piece = document.createElement("div");
+
+    piece.style.position = "fixed";
+    piece.style.width = "6px";
+    piece.style.height = "6px";
+    piece.style.background = "white";
+    piece.style.left = (rect.left + rect.width / 2) + "px";
+    piece.style.top = (rect.top + rect.height / 2) + "px";
+
+    document.body.appendChild(piece);
+
+    let angle = Math.random() * Math.PI * 2;
+    let distance = Math.random() * 700;
+
+    let x = Math.cos(angle) * distance;
+    let y = Math.sin(angle) * distance;
+
+    piece.animate([
+      { transform: "translate(0,0)", opacity: 1 },
+      { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+    ], {
+      duration: 800,
+      easing: "cubic-bezier(.2,.8,.2,1)"
+    });
+
+    setTimeout(() => piece.remove(), 800);
+  }
+
+  // HIDE LOGO
+  logo.style.opacity = 0;
+
+  // REDIRECT
+  setTimeout(() => {
+    window.location.href = "may.html";
+  }, 900);
+}
+</script>
+
+</body>
+</html>

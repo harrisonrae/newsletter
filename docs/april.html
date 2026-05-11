@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Newsletter OS</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="desktop">
+  <div id="menubar">
+  <div class="menu-item">File
+    <div class="dropdown">
+      <div onclick="openWindow('win1')">Open Newsletter</div>
+      <div onclick="openWindow('galleryWin')">Open Artworks</div>
+      <div onclick="location.reload()">Refresh</div>
+    </div>
+  </div>
+
+  <div class="menu-item">Edit
+    <div class="dropdown">
+        <div id="changeColour">change colour</div> 
+    <div id="flipScreen">upside down</div> 
+  </div>
+  </div>
+
+  <div class="menu-item">View
+    <div class="dropdown">
+      <div onclick="openWindow('galleryWin')">Artworks for sale</div>
+      <div onclick="window.location.href='https://harrisonrae.webflow.io'">
+  Visit my Website
+</div>
+  </div>
+  </div>
+  
+
+  <div class="menu-item">Help
+    <div class="dropdown">
+      <div onclick="alert('This is the first iteration of Harrison Raes newsletter. Please bookmark this page to keep updated.')">About</div>
+    </div>
+  </div>
+</div>
+
+  <!-- ICON: Newsletter -->
+  <div class="icon" style="top:50px; left:50px;" onclick="openWindow('win1')">
+    <img src="images/icon1.png"/>
+    <span>April</span>
+  </div>
+
+  <!-- ICON: Folder -->
+  <div class="icon" style="top:150px; left:50px;" onclick="openWindow('galleryWin')">
+    <img src="images/folder.png"/>
+    <span>ARTWORKS</span>
+  </div>
+  
+
+  
+</div>
+
+  <!-- WINDOW 1 -->
+  <div class="window" id="win1">
+    <div class="title-bar">
+      06.04.2026
+      <span class="close" onclick="closeWindow('win1')">X</span>
+    </div>
+    <div class="content">
+      <p>Hi!</p>
+      <p>Thanks to everyone that recently joined the mailing list.</p>
+      <p>
+      I'm hoping for this site to serve as an interesting way to keep people up to date while I learn more about coding. <p>
+      <p>
+      Next month I'll be sharing an update about some upcoming music being released.</p>
+      In other news, last week my work was shown at Goodspace. 
+      Thanks to Luke Westwood and Jensen Dahl for curating <em>Palantir capture at your local Coles </em> into their show <em>red=meltdown</em>. 
+      You can view that work among others by clicking the folder icon
+      </p>
+      Thank you!
+
+    </div>
+     <div style="margin-top:auto; display:flex; justify-content:center;">
+    <button onclick="closeWindow('win1')">cool!</button>
+  </div>
+  </div>
+
+  <!-- GALLERY WINDOW -->
+  <div class="window" id="galleryWin">
+    <div class="title-bar">
+      ARTWORKS_FOLDER
+      <span class="close" onclick="closeWindow('galleryWin')">X</span>
+    </div>
+    <div class="content">
+      <div id="galleryGrid" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
+    </div>
+  </div>
+
+
+
+  <!-- FULLSCREEN ART VIEW -->
+  <div class="window" id="artDetail">
+    <div class="title-bar">
+      ARTWORK_VIEW
+      <span class="close" onclick="closeWindow('artDetail')">X</span>
+    </div>
+
+    <div class="content">
+      <img id="detailImage">
+      <p id="detailInfo" style="color:rgb(0, 0, 0);"></p>
+    </div>
+  </div>
+  
+  
+ 
+
+</div>
+
+<script>
+let topZ = 1;
+let offset = 0;
+
+
+
+/* Window controls */
+function openWindow(id) {
+  const win = document.getElementById(id);
+  win.style.display = 'flex';
+  win.style.left = (100 + offset) + 'px';
+  win.style.top = (100 + offset) + 'px';
+  win.classList.remove("fullscreen");
+  bringToFront(win);
+  offset += 20;
+
+  if (id === "galleryWin") renderGrid();
+}
+
+function closeWindow(id) {
+  const win = document.getElementById(id);
+  win.style.display = 'none';
+  win.classList.remove("fullscreen");
+}
+
+function bringToFront(el) {
+  topZ++;
+  el.style.zIndex = topZ;
+}
+
+
+
+/* Dragging */
+document.querySelectorAll(".window").forEach(win => {
+  const bar = win.querySelector(".title-bar");
+  let offsetX = 0, offsetY = 0, isDown = false;
+
+  bar.addEventListener("mousedown", e => {
+    if (win.classList.contains("fullscreen")) return;
+    isDown = true;
+    offsetX = win.offsetLeft - e.clientX;
+    offsetY = win.offsetTop - e.clientY;
+    bringToFront(win);
+  });
+
+  document.addEventListener("mouseup", () => isDown = false);
+
+  document.addEventListener("mousemove", e => {
+    if (!isDown) return;
+    win.style.left = (e.clientX + offsetX) + "px";
+    win.style.top = (e.clientY + offsetY) + "px";
+  });
+});
+
+/* ARTWORK DATA */
+const artworks = [
+  { src: "images/tony.png", title: "Tony", price: "$450", materials: "gel medium transfer on board", size: "40 x 50 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/xerographystudy.png", title: "Xerography Study", price: "$150", materials: "Solvent transfer on canvas", size: "20 x 30 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/runway.png", title: "Runway", price: "$350", materials: "acrylic and gel medium transfer on board", size: "50 x 60 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/echo.jpg", title: "echo", price: "$350", materials: "Acrylic and gel medium transfer on board", size: "50 x 60 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/Palantir.png", title: "Palantir Capture at your Local Coles", price: "$200", materials: "gel medium transfer on board", size: "35 x 40 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/angel.jpg", title: "Angel", price: "$150", materials: "Acrylic on canvas", size: "25 x 20 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/cocoa.jpg", title: "Cocoa", price: "$180", materials: "Gel medium transfer on board", size: "30 x 25 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/marked.png", title: "Marked", price: "$400", materials: "Gel medium transfer on canvas", size: "60 x 70 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+  { src: "images/cosmo.jpg", title: "Cosmo", price: "$250", materials: "Gel medium transfer on board", size: "42 x 59.4 cm", email: "to purchase this artwork email harry-rae(at)hotmail.com" }
+];
+
+/* GRID */
+function renderGrid() {
+  const container = document.getElementById("galleryGrid");
+  container.innerHTML = "";
+
+  artworks.forEach((art, index) => {
+    const item = document.createElement("div");
+    item.style.width = "120px";
+    item.style.cursor = "pointer";
+
+    item.innerHTML = `
+      <img src="${art.src}" style="width:100%; height:90px; object-fit:cover;">
+      <div style="font-size:10px;">${art.title}</div>
+    `;
+
+    item.onclick = () => openArtwork(index);
+    container.appendChild(item);
+  });
+}
+
+/* OPEN FULLSCREEN ART */
+function openArtwork(index) {
+  const art = artworks[index];
+  const win = document.getElementById("artDetail");
+
+  win.style.display = "flex";
+  win.classList.add("fullscreen");
+  bringToFront(win);
+
+  document.getElementById("detailImage").src = art.src;
+  document.getElementById("detailInfo").innerHTML = `
+    <strong>${art.title}</strong><br>
+    ${art.price}<br>
+    ${art.materials}<br>
+    ${art.size}<br>
+    ${art.email}
+  `;
+}
+
+/* FIXED: RUNS ON LOAD */
+window.onload = function () {
+  const win = document.getElementById("imgWin");
+  win.style.display = "flex";
+  win.style.left = (window.innerWidth - 560) + "px";
+  win.style.top = "80px";
+  bringToFront(win);
+}
+
+  window.onload = function () {
+  const win = document.getElementById("win1");
+  win.style.display = "flex";
+  win.style.left = (window.innerWidth - 860) + "px";
+  win.style.top = "80px";
+  bringToFront(win);
+};
+
+
+  const changeColourBtn = document.getElementById("changeColour");
+  const flipScreenBtn = document.getElementById("flipScreen");
+
+  // Change background to pink
+  changeColourBtn.addEventListener("click", () => {
+    document.body.style.backgroundColor = "pink";
+  });
+
+  // Flip the whole window
+  flipScreenBtn.addEventListener("click", () => {
+    document.body.classList.toggle("flipped");
+  });
+
+</script>
+
+</body>
+</html>

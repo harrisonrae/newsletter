@@ -1,101 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Enter Domain</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Newsletter OS</title>
 
-    /* Background image */
-    #bg {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      opacity: 1;
-  transition: opacity 7s ease;
+<link rel="stylesheet" href="style.css">
 
-    }
-
-    /* Popup box */
-    #popup {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 30px;
-      border: 2px solid white;
-      text-align: center;
-      display: none;
-    }
-
-    .button {
-      margin: 15px;
-      padding: 10px 20px;
-      border: 1px solid white;
-      cursor: pointer;
-      display: inline-block;
-    }
-
-    .button:hover {
-      background: white;
-      color: black;
-    }
-  </style>
 </head>
+
 <body>
 
-  <!-- Background image -->
-  <img id="bg" src="images/bg3.jpg" alt="background">
+<div id="desktop">
 
-  <!-- Popup -->
-  <div id="popup">
-    <p>Greetings. Do wish to enter my domain?</p>
-    <div class="button" onclick="enterSite()">Yes</div>
-    <div class="button" onclick="denyAccess()">No</div>
+  <!-- MENU -->
+  <div id="menubar">
+
+    <div class="menu-item">File
+      <div class="dropdown">
+        <div onclick="openWindow('win1')">Open Newsletter</div>
+        <div onclick="openWindow('galleryWin')">Open Artworks</div>
+        <div onclick="openWindow('archive')">Open Archive</div>
+        <div onclick="location.reload()">Refresh</div>
+      </div>
+    </div>
+
+    <div class="menu-item">Edit
+      <div class="dropdown">
+        <div id="changeColour">change colour</div>
+        <div id="flipScreen">upside down</div>
+      </div>
+    </div>
+
+    <div class="menu-item">View
+      <div class="dropdown">
+        <div onclick="openWindow('galleryWin')">Artworks for sale</div>
+        <div onclick="window.location.href='https://harrisonrae.webflow.io'">
+          Visit my Website
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">Help
+      <div class="dropdown">
+        <div onclick="alert('This is the first iteration of Harrison Raes newsletter.')">
+          About
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <script>
-    const bg = document.getElementById('bg');
-    const popup = document.getElementById('popup');
+  <!-- DESKTOP ICONS -->
+  <div class="icon" style="top:50px; left:50px;" onclick="openWindow('win1')">
+    <img src="images/spotify.png">
+    <span>MAY</span>
+  </div>
 
-    // Show popup once image loads
-    bg.onload = () => {
-      popup.style.display = 'block';
-    };
+    <div class="icon" style="top: 450px; left: 50px;" onclick="openWindow('pdf1')">
+    <img src="images/scan2.png" alt="PDF Icon">
+    <span>scans.pdf</span>
+</div>
 
-   function enterSite() {
-  // 1. Play music
-  const audio = new Audio('images/greetings.mp3');
-  audio.play();
+  <div class="icon" style="top:250px; left:50px;" onclick="openWindow('galleryWin')">
+    <img src="images/folder.png">
+    <span>ARTWORKS</span>
+  </div>
 
-  // 2. Fade out the background image
-  const bg = document.getElementById('bg');
-  bg.style.transition = "opacity 7s ease";
-  bg.style.opacity = "0";
+  <div class="icon" style="bottom:50px; right:50px;" onclick="openWindow('archive')">
+    <img src="images/rubbishupate.png">
+    <span>ARCHIVE</span>
+  </div>
 
-  // 3. Redirect after fade completes
-  setTimeout(() => {
-    window.location.href = "newsletter.html";
-  }, 7000); // matches the fade duration
+  <!-- DESKTOP ICON -->
+<div class="icon" style="top:150px; left:50px;" onclick="openWindow('musicWin')">
+  <img src="images/music.png">
+  <span>GL_DEMO.WAV</span>
+</div>
+
+</div>
+
+<!-- NEWSLETTER WINDOW -->
+<div class="window" id="win1">
+  <div class="title-bar">
+    11.05.2026
+    <span class="close" onclick="closeWindow('win1')">X</span>
+  </div>
+
+  <div class="content">
+     <p> <em>Hi everyone</em></p>
+
+<p> 
+Recently I removed all Club Moss music from streaming platforms. I won't articulate the reasons in this newsletter as there are already 
+<a href="https://theconversation.com/why-musicians-are-leaving-spotify-and-what-it-means-for-the-music-you-love-269231" target="_blank">articles</a> & 
+<a href="https://www.abc.net.au/listen/programs/musicshow/liz-pelly-spotify-mood-machine-judy-bailey-sheila-jordan-jazz/105606164" target="_blank">podcasts</a>
+which are substantiated with research and worth reading/listening to.
+</p>
+<p>
+Club Moss releases and other music I've self-released are still available to listen to, hosted on 
+<a href="https://clubmoss.bandcamp.com" target="_blank">Bandcamp</a>. There I will be releasing music for the first time since 
+<a href="https://harrison-rae.bandcamp.com/album/tara" target="_blank">Ta'ra</a>, released in 2024 with Midheaven. 
+<p>
+</p>
+Next months release is a collection of demos from 2025 that people enjoyed from shows that need to be archived so I can move on and make new music 
+<p>
+</p>
+You can listen and download <em>Green Line</em> before its on bandcamp by clicking the thumbprint.
+<p></p>
+
+P.S. <p>
+I've spent a lot of time recently going through photobooks at Fisher Library. A PDF of scans is on the newsletter desktop for you to see of photos I was looking at today. 
+
+</p>
+
+
+</div>
+
+  <div style="padding:10px; text-align:center;">
+    <button onclick="closeWindow('win1')">peace!</button>
+  </div>
+</div>
+
+<!-- GALLERY WINDOW -->
+<div class="window" id="galleryWin">
+  <div class="title-bar">
+    ARTWORKS_FOLDER
+    <span class="close" onclick="closeWindow('galleryWin')">X</span>
+  </div>
+
+  <div class="content">
+    <div id="galleryGrid" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
+  </div>
+</div>
+
+<!-- ARCHIVE WINDOW -->
+<div class="window" id="archive">
+
+  <div class="title-bar">
+    NEWSLETTER ARCHIVE
+    <span class="close" onclick="closeWindow('archive')">X</span>
+  </div>
+
+  <div class="content">
+
+    <div id="iconGrid" style="display:flex; flex-wrap:wrap; gap:20px;">
+
+      <!-- APRIL -->
+      <div class="archive-icon" onclick="openWindow('aprilArchive')">
+        <img src="images/icon1.png">
+        <p>APRIL 2026</p>
+      </div>
+
+      <!-- MAY -->
+      <div class="archive-icon" onclick="openWindow('mayArchive')">
+        <img src="images/spotify.png">
+        <p>MAY 2026</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ARCHIVE ENTRY -->
+<div class="window" id="aprilArchive">
+  <div class="title-bar">
+    APRIL 2026
+    <span class="close" onclick="closeWindow('aprilArchive')">X</span>
+  </div>
+
+  <div class="content">
+    <p>Hi!</p>
+      <p>Thanks to everyone that recently joined the mailing list.</p>
+      <p>
+      I'm hoping for this site to serve as an interesting way to keep people up to date while I learn more about coding. <p>
+      <p>
+      Next month I'll be sharing an update about some upcoming music being released.</p>
+      In other news, last week my work was shown at Goodspace. 
+      Thanks to Luke Westwood and Jensen Dahl for curating <em>Palantir capture at your local Coles </em> into their show <em>red=meltdown</em>. 
+      You can view that work among others by clicking the folder icon
+      </p>
+      Thank you!
+  </div>
+
+     
+</div>
+<div class="window" id="pdf1">
+
+  <div class="title-bar">
+    PHOTOSCAN.PDF
+    <span class="close" onclick="closeWindow('pdf1')">X</span>
+  </div>
+
+  <div class="content" style="padding:0;">
+
+    <iframe
+      src="images/photoscans.pdf"
+      width="100%"
+      height="100%"
+      style="border:none;">
+    </iframe>
+
+  </div>
+
+</div>
+
+  </div>
+
+<!-- FULLSCREEN ART VIEW -->
+<div class="window" id="artDetail">
+  <div class="title-bar">
+    ARTWORK_VIEW
+    <span class="close" onclick="closeWindow('artDetail')">X</span>
+  </div>
+
+  <div class="content">
+    <img id="detailImage">
+    <p id="detailInfo"></p>
+  </div>
+
+  </div>
+
+
+
+<!-- MUSIC WINDOW -->
+<div class="window" id="musicWin">
+
+  <div class="title-bar">
+    MUSIC_PLAYER.EXE
+    <span class="close" onclick="closeWindow('musicWin')">X</span>
+  </div>
+
+  <div class="content" style="
+    background:#c0c0c0;
+    padding:12px;
+    font-size:11px;
+  ">
+
+    <!-- PLAYER PANEL -->
+    <div style="
+      border:2px inset #fff;
+      background:#bdbdbd;
+      padding:10px;
+    ">
+
+      <!-- ALBUM ART -->
+      <div style="
+        border:2px inset #808080;
+               padding:6px;
+        margin-bottom:10px;
+        text-align:center;
+      ">
+        <img 
+          src="images/fingerprint.jpg"
+          style="
+            width:180px;
+            image-rendering:pixelated;
+          "
+        >
+      </div>
+
+      
+
+      <!-- AUDIO -->
+      <audio id="musicPlayer" controls style="width:100%;">
+  <source src="music/greenline.wav" type="audio/wav">
+</audio>
+
+     
+
+    </div>
+
+  </div>
+
+  <div style="
+    padding:8px;
+    background:#c0c0c0;
+    border-top:1px solid #808080;
+    text-align:center;
+  ">
+    <button onclick="closeWindow('musicWin')">
+      close
+    </button>
+  </div>
+
+</div>
+
+
+
+<script>
+let topZ = 1;
+let offset = 0;
+
+function openWindow(id) {
+
+  const win = document.getElementById(id);
+
+  win.style.display = "flex";
+  win.style.left = (100 + offset) + "px";
+  win.style.top = (100 + offset) + "px";
+
+  bringToFront(win);
+
+  offset += 20;
+
+  if (id === "galleryWin") {
+    renderGallery();
+  }
+
+  if (id === "musicWin") {
+    document.getElementById("musicPlayer").play();
+  }
+
 }
 
-    function denyAccess() {
-      alert("You chose wisely...");
-      // Or close window / fade out / loop
-    }
-  </script>
+function closeWindow(id) {
+  const win = document.getElementById(id);
+
+  win.style.display = "none";
+  win.classList.remove("fullscreen");
+  if (id === "musicWin") {
+  document.getElementById("musicPlayer").play();
+}
+ if (id === "musicWin") {
+  const player = document.getElementById("musicPlayer");
+  player.pause();
+  player.currentTime = 0;
+}
+
+}
+
+function bringToFront(el) {
+  topZ++;
+  el.style.zIndex = topZ;
+}
+
+/* DRAGGING */
+document.querySelectorAll(".window").forEach(win => {
+
+  const bar = win.querySelector(".title-bar");
+
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDown = false;
+
+  bar.addEventListener("mousedown", e => {
+
+    if (win.classList.contains("fullscreen")) return;
+
+    isDown = true;
+
+    offsetX = win.offsetLeft - e.clientX;
+    offsetY = win.offsetTop - e.clientY;
+
+    bringToFront(win);
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDown = false;
+  });
+
+  document.addEventListener("mousemove", e => {
+
+    if (!isDown) return;
+
+    win.style.left = (e.clientX + offsetX) + "px";
+    win.style.top = (e.clientY + offsetY) + "px";
+  });
+});
+
+
+
+
+/* ARTWORK DATA */
+
+
+
+const artworks = [
+  { src: "images/tony.png", 
+  title: "Tony", 
+  price: "$450", 
+  materials: "gel medium transfer on board", 
+  size: "40 x 50 cm", 
+  email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+
+  { src: "images/xerographystudy.png", 
+  title: "Xerography Study", 
+  price: "$150", materials: 
+  "Solvent transfer on canvas", 
+  size: "20 x 30 cm", 
+  email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+
+ { src: "images/runway.png", 
+    title: "Runway", 
+    price: "$350", 
+    materials: "acrylic and gel medium transfer on board", 
+    size: "50 x 60 cm", 
+    email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+
+  { src: "images/Palantir.png", 
+    title: "Palantir Capture at your Local Coles", 
+    price: "$200", 
+    materials: "gel medium transfer on board", 
+    size: "35 x 40 cm", 
+    email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+
+  { src: "images/angel.jpg", 
+    title: "Angel", 
+    price: "$150", 
+    materials: "Acrylic on canvas", 
+    size: "25 x 20 cm", 
+    email: "to purchase this artwork email harry-rae(at)hotmail.com" },
+
+      
+  { src: "images/cocoa.jpg", 
+    title: "Cocoa", 
+    price: "$180", 
+    materials: "Gel medium transfer on board", 
+    size: "30 x 25 cm", 
+    email: "to purchase this artwork email harry-rae(at)hotmail.com" }
+   ];
+
+/* RENDER GALLERY */
+function renderGallery() {
+
+  const container = document.getElementById("galleryGrid");
+
+  container.innerHTML = "";
+
+  artworks.forEach((art, index) => {
+
+    const item = document.createElement("div");
+
+    item.style.width = "120px";
+    item.style.cursor = "pointer";
+
+    item.innerHTML = `
+      <img src="${art.src}" style="width:100%; height:90px; object-fit:cover;">
+      <div style="font-size:10px;">${art.title}</div>
+    `;
+
+    item.onclick = () => openArtwork(index);
+
+    container.appendChild(item);
+  });
+}
+
+/* OPEN ARTWORK */
+function openArtwork(index) {
+
+  const art = artworks[index];
+
+  const win = document.getElementById("artDetail");
+
+  win.style.display = "flex";
+
+  win.classList.add("fullscreen");
+
+  bringToFront(win);
+
+  document.getElementById("detailImage").src = art.src;
+
+  document.getElementById("detailInfo").innerHTML = `
+    <strong>${art.title}</strong><br>
+    ${art.price}<br>
+    ${art.materials}<br>
+    ${art.size}
+  `;
+}
+
+ window.onload = function () {
+  const win = document.getElementById("win1");
+  win.style.display = "flex";
+  win.style.left = (window.innerWidth - 860) + "px";
+  win.style.top = "80px";
+  bringToFront(win);
+};
+
+/* CHANGE COLOUR */
+document.getElementById("changeColour").addEventListener("click", () => {
+  document.body.style.backgroundColor = "pink";
+});
+
+/* FLIP SCREEN */
+document.getElementById("flipScreen").addEventListener("click", () => {
+  document.body.classList.toggle("flipped");
+});
+</script>
 
 </body>
 </html>
