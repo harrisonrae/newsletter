@@ -72,10 +72,16 @@
     <span>archive</span>
   </div>
 
-  <!-- DESKTOP ICON -->
+  <!-- music ICON -->
 <div class="icon" style="top:150px; left:50px;" onclick="openWindow('musicWin')">
   <img src="images/music.png">
   <span>green_line.wav</span>
+</div>
+
+  
+<div class="icon" style="top:350px; left:50px;" onclick="openWindow('musicWin2')">
+  <img src="images/music.png">
+  <span>in da yaris.wav</span>
 </div>
 
 </div>
@@ -111,7 +117,7 @@ All Club Moss releases and other music I've self-released are still available to
 Next months release is a collection of demos from 2025 that people enjoyed from shows that need to be archived so I can move on and make new music 
 <p>
 </p>
-You can listen and download <em>Green Line</em> before its on bandcamp by clicking the music icon.
+You can listen and download <em>Green Line</em> and <em>untitled song for the yaris</em> before they're on bandcamp by clicking the music icons.
 <p></p>
 
 P.S. <p>
@@ -279,15 +285,32 @@ I've been thinking about photography a lot recently and going through photobooks
 
   </div>
 
-  <div style="
-    padding:8px;
-    background:#c0c0c0;
-    border-top:1px solid #808080;
-    text-align:center;
-  ">
-    <button onclick="closeWindow('musicWin')">
-      close
-    </button>
+  
+
+
+</div>
+
+<!-- SECOND MUSIC WINDOW -->
+<div class="window" id="musicWin2">
+
+  <div class="title-bar">
+    MUSIC_PLAYER_02.EXE
+    <span class="close" onclick="closeWindow('musicWin2')">X</span>
+  </div>
+
+  <div class="content" style="text-align:center;">
+
+    <img 
+      src="images/fingerprint.jpg"
+      style="width:200px; margin-bottom:15px;"
+    >
+
+    <p>track02.wav</p>
+
+    <audio id="musicPlayer2" controls style="width:100%;">
+      <source src="music/yaris.wav" type="audio/wav">
+    </audio>
+
   </div>
 
 </div>
@@ -318,11 +341,20 @@ function openWindow(id) {
     renderGallery();
   }
 
+
+
   if (id === "musicWin") {
-    document.getElementById("musicPlayer").play();
-  }
+  document.getElementById("musicPlayer").play();
+}
+
+if (id === "musicWin2") {
+  document.getElementById("musicPlayer2").play();
+}
+ 
 
 }
+
+   
 
 function closeWindow(id) {
   const win = document.getElementById(id);
@@ -334,6 +366,11 @@ function closeWindow(id) {
 }
  if (id === "musicWin") {
   const player = document.getElementById("musicPlayer");
+  player.pause();
+  player.currentTime = 0;
+}
+if (id === "musicWin2") {
+  const player = document.getElementById("musicPlayer2");
   player.pause();
   player.currentTime = 0;
 }
