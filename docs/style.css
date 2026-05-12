@@ -97,6 +97,12 @@ body {
   flex-direction: column;
 }
 
+/* NEWSLETTER WINDOW ONLY */
+#win1 {
+  width: 460px;
+  height: 500px;
+}
+
 /* Title bar */
 .title-bar {
   background: linear-gradient(#000080, #0000aa);
