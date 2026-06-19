@@ -28,6 +28,7 @@
       <div class="dropdown">
         <div id="changeColour">change colour</div>
         <div id="flipScreen">upside down</div>
+        <div id="addBackground">add background</div>
       </div>
     </div>
 
@@ -42,7 +43,7 @@
 
     <div class="menu-item">Help
       <div class="dropdown">
-        <div onclick="alert('This is the first iteration of Harrison Raes newsletter.')">
+        <div onclick="alert('This is the second iteration of Harrison Raes newsletter.')">
           About
         </div>
       </div>
@@ -53,28 +54,34 @@
   <!-- DESKTOP ICONS -->
   <div class="icon" style="top:50px; left:50px;" onclick="openWindow('win1')">
     <img src="images/spotify.png">
-    <span>MAY</span>
+    <span>may</span>
   </div>
 
-    <div class="icon" style="top: 450px; left: 50px;" onclick="openWindow('pdf1')">
+    <div class="icon" style="top: 50px; left: 150px;" onclick="openWindow('pdf1')">
     <img src="images/scan2.png" alt="PDF Icon">
     <span>scans.pdf</span>
 </div>
 
   <div class="icon" style="top:250px; left:50px;" onclick="openWindow('galleryWin')">
     <img src="images/folder.png">
-    <span>ARTWORKS</span>
+    <span>art4sale</span>
   </div>
 
   <div class="icon" style="bottom:50px; right:50px;" onclick="openWindow('archive')">
     <img src="images/rubbishupate.png">
-    <span>ARCHIVE</span>
+    <span>archive</span>
   </div>
 
-  <!-- DESKTOP ICON -->
+  <!-- music ICON -->
 <div class="icon" style="top:150px; left:50px;" onclick="openWindow('musicWin')">
   <img src="images/music.png">
-  <span>GL_DEMO.WAV</span>
+  <span>green_line.wav</span>
+</div>
+
+  
+<div class="icon" style="top:350px; left:50px;" onclick="openWindow('musicWin2')">
+  <img src="images/music.png">
+  <span>untitled track for da yaris.wav</span>
 </div>
 
 </div>
@@ -90,25 +97,31 @@
      <p> <em>Hi everyone</em></p>
 
 <p> 
-Recently I removed all Club Moss music from streaming platforms. I won't articulate the reasons in this newsletter as there are already 
+Earlier this year I removed all Club Moss music from streaming platforms. 
+<p>
+
+</p>
+I was a bit lazy in taking so long to do this, but am happy with the decision to not be a part of that system.
+<p>
+
+</p>
+I'm not interested in rehashing the reasons here so anyone interested can visit these 
 <a href="https://theconversation.com/why-musicians-are-leaving-spotify-and-what-it-means-for-the-music-you-love-269231" target="_blank">articles</a> & 
 <a href="https://www.abc.net.au/listen/programs/musicshow/liz-pelly-spotify-mood-machine-judy-bailey-sheila-jordan-jazz/105606164" target="_blank">podcasts</a>
-which are substantiated with research and worth reading/listening to.
-</p>
-<p>
-Club Moss releases and other music I've self-released are still available to listen to, hosted on 
-<a href="https://clubmoss.bandcamp.com" target="_blank">Bandcamp</a>. There I will be releasing music for the first time since 
-<a href="https://harrison-rae.bandcamp.com/album/tara" target="_blank">Ta'ra</a>, released in 2024 with Midheaven. 
+articulating some of the issues with streaming services.  
+All Club Moss releases and other music I've self-released are still available to listen to, hosted on 
+<a href="https://clubmoss.bandcamp.com" target="_blank">Bandcamp</a>, where I will be releasing music for the first time since
+<a href="https://harrison-rae.bandcamp.com/album/tara" target="_blank">my release with Midheaven in 2024</a>.
 <p>
 </p>
 Next months release is a collection of demos from 2025 that people enjoyed from shows that need to be archived so I can move on and make new music 
 <p>
 </p>
-You can listen and download <em>Green Line</em> before its on bandcamp by clicking the thumbprint.
+You can listen and download <em>Green Line</em> and <em>untitled song for the yaris</em> before they're on bandcamp by clicking the music icons.
 <p></p>
 
 P.S. <p>
-I've spent a lot of time recently going through photobooks at Fisher Library. A PDF of scans is on the newsletter desktop for you to see of photos I was looking at today. 
+I've been thinking about photography a lot recently and going through photobooks after work at Fisher Library. A PDF of scans is on the newsletter desktop for you to see of photos I was looking at today. 
 
 </p>
 
@@ -272,18 +285,39 @@ I've spent a lot of time recently going through photobooks at Fisher Library. A 
 
   </div>
 
-  <div style="
-    padding:8px;
-    background:#c0c0c0;
-    border-top:1px solid #808080;
-    text-align:center;
-  ">
-    <button onclick="closeWindow('musicWin')">
-      close
-    </button>
+  
+
+
+</div>
+
+<!-- SECOND MUSIC WINDOW -->
+<div class="window" id="musicWin2">
+
+  <div class="title-bar">
+    MUSIC_PLAYER_02.EXE
+    <span class="close" onclick="closeWindow('musicWin2')">X</span>
+  </div>
+
+  <div class="content" style="text-align:center;">
+
+    <img 
+      src="images/fingerprint.jpg"
+      style="width:200px; margin-bottom:15px;"
+    >
+
+    <p>track02.wav</p>
+
+    <audio id="musicPlayer2" controls style="width:100%;">
+      <source src="music/yaris.wav" type="audio/wav">
+    </audio>
+
   </div>
 
 </div>
+
+<audio id="bgSound">
+  <source src="music/boo.flac" type="audio/flac">
+</audio>
 
 
 
@@ -307,11 +341,20 @@ function openWindow(id) {
     renderGallery();
   }
 
+
+
   if (id === "musicWin") {
-    document.getElementById("musicPlayer").play();
-  }
+  document.getElementById("musicPlayer").play();
+}
+
+if (id === "musicWin2") {
+  document.getElementById("musicPlayer2").play();
+}
+ 
 
 }
+
+   
 
 function closeWindow(id) {
   const win = document.getElementById(id);
@@ -323,6 +366,11 @@ function closeWindow(id) {
 }
  if (id === "musicWin") {
   const player = document.getElementById("musicPlayer");
+  player.pause();
+  player.currentTime = 0;
+}
+if (id === "musicWin2") {
+  const player = document.getElementById("musicPlayer2");
   player.pause();
   player.currentTime = 0;
 }
@@ -485,6 +533,31 @@ document.getElementById("changeColour").addEventListener("click", () => {
 document.getElementById("flipScreen").addEventListener("click", () => {
   document.body.classList.toggle("flipped");
 });
+
+/* add an image in the background */ 
+
+const addBackgroundBtn = document.getElementById("addBackground");
+
+addBackgroundBtn.addEventListener("click", () => {
+
+  const bgImage = new Image();
+
+  bgImage.src = "images/headshot.jpg";
+
+  bgImage.onload = () => {
+
+    document.body.style.backgroundImage = "url('images/headshot.jpg')";
+
+    document.body.style.backgroundSize = "cover";
+
+    document.body.style.backgroundPosition = "center";
+
+    document.getElementById("bgSound").play();
+
+  };
+
+});
+
 </script>
 
 </body>
