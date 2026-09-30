@@ -103,6 +103,13 @@ body {
   height: 440px;
 }
 
+/* all incomplete window */
+#win2 {
+  width: 760px;
+  height: 640px;
+}
+
+
 /* Title bar */
 .title-bar {
   background: linear-gradient(#000080, #0000aa);

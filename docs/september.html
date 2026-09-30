@@ -44,7 +44,7 @@
 
     <div class="menu-item">Help
       <div class="dropdown">
-        <div onclick="alert('This is the third iteration of Harrison Raes newsletter.')">
+        <div onclick="alert('This is the fourth iteration of Harrison Raes newsletter.')">
           About
         </div>
       </div>
@@ -67,6 +67,8 @@
     <span>fisherlibraryphotoscans.pdf</span>
 </div>
 
+
+
 <!--art for sale-->
   <div class="icon" style="top:250px; left:50px;" onclick="openWindow('galleryWin')">
     <img src="images/folder.png">
@@ -85,11 +87,7 @@
 </div>
 
 
-  <!-- fugitivity ICON -->
-<div class="icon" style="top:350px; left:50px;" onclick="window.location.href='https://harrisonrae.github.io/framework42/'">
-  <img src="images/moten.png">
-  <span>NOTES ON FUGITIVITY</span>
-</div>
+  
 
  <!-- September ICON -->
 <div class="icon" style="top:150px; left:150px;" onclick="openWindow('youtubeWin')">
@@ -97,10 +95,17 @@
   <span>SEPTEMBER</span>
 </div>
 
-<!--may photography scans-->
-    <div class="icon" style="top: 350px; left: 150px;" onclick="openWindow('pdf1')">
-    <img src="images/allincomplete.pdf" alt="PDF Icon">
+<!--all incomplete-->
+    <div class="icon" style="top: 350px; left: 150px;" onclick="openWindow('pdf2')">
+    <img src="images/motenharney.jpg" alt="PDF Icon">
     <span>all_incomplete.pdf</span>
+</div>
+
+
+<!--season artwork-->
+    <div class="icon" style="top: 250px; left: 150px;" onclick="openWindow('dogimg')">
+    <img src="images/Season_Fundraiser_Artworks_sRGB_photoDavidSuyasa-7.png" alt="PDF Icon">
+    <span>painting</span>
 </div>
 
   
@@ -117,19 +122,19 @@
   <div class="content">
      <p> <em>Hi</em></p>
 
-<p></p>My mixtape came out a couple of months ago and is available to purchase and stream exclusively on Bandcamp. Thanks to everyone who has supported mixtape 2025 so far through purchasing it or playing it on radio
+<p></p>My mixtape came out a couple of months ago and is available to purchase and stream exclusively on Bandcamp. Thanks to everyone who has purchased or played mixtape 2025 on the radio.
 We love community radio ! 
 <p></p>
 Since the last update I've moved to the Sutherland shire. So anyone doing gigs down there or beyond in the illawarra I'd be down to play.
 </p>
-Also I'm going to Seoul this month, so any recommendations would be awesome.
+Also it is giving season, and I've given Season ARI a painting for their fundraiser. 
+You can preview the yapping techno dog in the browser or head down to the gallery on October 3rd.
+Check out the <a href="https://app.galabid.com/season2026/items" >gala bid page</a> if you wanted to bid on any of the artworks for sale
 <p></p>
 
-Lastly, it is September so it would be a shame to not host on the desktop my video work titled 'September'. 
-The work rewinds Eisensteins film as a response to Hito Steyerl's video work 'November'. 
-My own writing about this work says that the video insists that revolution is not only a memory but also a possibility that precedes us, refusing the inevitability of post-revolutionary hierarchies being consolidated. 
-<p></p>I'm sure I've already mentioned that I'm enjoying painting my silly paintings and taking photos so as to not sound so toy. 
-<p>Take a look at some of my recent photos from around Cronulla in the folder on the desktop!</p> 
+To finish this months newsletter on the last day of September it would be a shame to not host on the desktop my video work titled 'September'. 
+The work rewinds Eisensteins film as a response to Hito Steyerl's video work 'November', 
+refusing the hopeless state of the world and insisting insisting that revolution is not only a memory but also a possibility that precedes us.
 </div>
 
   <div style="padding:10px; text-align:center;">
@@ -175,7 +180,7 @@ My own writing about this work says that the video insists that revolution is no
 
       <!-- JUNE -->
       <div class="archive-icon" onclick="openWindow('juneArchive')">
-        <img src="images/icon2.png">
+        <img src="images/fingerprint.jpg">
         <p>JUNE 2026</p>
       </div>
 
@@ -297,6 +302,53 @@ Listen to the mixtape prior to its release by clicking the mixtape icon on the n
   </div>
 
 </div>
+
+<!--pdf 2-->
+<div class="window" id="pdf2">
+
+  <div class="title-bar">
+   ALL INCOMPLETE
+    <span class="close" onclick="closeWindow('pdf2')">X</span>
+  </div>
+
+  <div class="content" style="padding:0;">
+
+    <iframe
+      src="images/allincomplete.pdf"
+      width="100%"
+      height="100%"
+      style="border:none;">
+    </iframe>
+
+  </div>
+
+</div>
+
+<!--season-->
+<div class="window" id="dogimg">
+
+  <div class="title-bar">
+   Dog
+    <span class="close" onclick="closeWindow('dogimg')">X</span>
+  </div>
+
+  <div class="content" style="padding:0;">
+
+    <iframe
+      src="images/Season_Fundraiser_Artworks_sRGB_photoDavidSuyasa-7.png"
+      width="100%"
+      height="100%"
+      style="border:none;">
+    </iframe>
+
+  </div>
+
+</div>
+
+
+
+
+
 <!-- YOUTUBE WINDOW -->
 <div class="window" id="youtubeWin">
   <div class="title-bar">
@@ -394,6 +446,12 @@ Listen to the mixtape prior to its release by clicking the mixtape icon on the n
   <source src="music/boo.flac" type="audio/flac">
 </audio>
 
+<audio id="dogbark">
+  <source src="music/bark.wav" type="audio/wav">
+</audio>
+
+
+
 
 
 <script>
@@ -426,9 +484,17 @@ if (id === "musicWin2") {
   document.getElementById("musicPlayer2").play();
 }
  
+if (id === "dogimg") {
+  document.getElementById("dogbark").play();
+  document.getElementById("dogimg").style.display = "block";
+
+
+
+
+
 
 }
-
+}
    
 
 function closeWindow(id) {
@@ -616,6 +682,8 @@ addBackgroundBtn.addEventListener("click", () => {
   };
 
 });
+
+
 
 </script>
 
